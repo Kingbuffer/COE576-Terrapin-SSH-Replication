@@ -1,0 +1,10 @@
+{
+  "seed": 57611,
+  "trials": 1000,
+  "grid_trials": 100,
+  "packet_count": 12,
+  "python": "3.12.3",
+  "cryptography": "46.0.0",
+  "matplotlib": "3.10.8",
+  "scope": "Offline framed SSH ChaCha20-Poly1305 packet experiment; no live SSH endpoints"
+}

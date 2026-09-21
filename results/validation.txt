@@ -1,0 +1,13 @@
+test_aborted_receiver_cannot_resume (test_terrapin.PacketTests.test_aborted_receiver_cannot_resume) ... ok
+test_chacha_known_vector (test_terrapin.PacketTests.test_chacha_known_vector) ... ok
+test_ciphertext_tampering_fails (test_terrapin.PacketTests.test_ciphertext_tampering_fails) ... ok
+test_controls_and_matched_prefix (test_terrapin.PacketTests.test_controls_and_matched_prefix) ... ok
+test_extension_loss_and_remaining_packets (test_terrapin.PacketTests.test_extension_loss_and_remaining_packets) ... ok
+test_packet_lengths_and_wrong_nonce (test_terrapin.PacketTests.test_packet_lengths_and_wrong_nonce) ... ok
+test_poly1305_rfc8439_vector (test_terrapin.PacketTests.test_poly1305_rfc8439_vector) ... ok
+test_safeguards_preserve_clean_channel (test_terrapin.PacketTests.test_safeguards_preserve_clean_channel) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.012s
+
+OK

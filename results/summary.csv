@@ -1,0 +1,10 @@
+case,trials,accepted,prefix_removed,ext_missing
+Clean legacy,1000,1000,0,0
+Drop only,1000,0,0,0
+Inject only,1000,0,0,0
+Matched truncation,1000,1000,1000,1000
+Reset only,1000,0,0,0
+Reject optional only,1000,0,0,0
+Strict KEX model,1000,0,0,0
+Tampered ciphertext,1000,0,0,0
+Clean strict KEX,1000,1000,0,0
