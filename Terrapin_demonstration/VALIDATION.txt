@@ -1,0 +1,42 @@
+Terrapin classroom demonstrator - validation record
+23 September 2026
+
+CRYPTOGRAPHIC CHECKS: PASSED
+- Published all-zero original ChaCha20 64-byte vector.
+- RFC 8439 Poly1305 vector for "Cryptographic Forum Research Group".
+- 36 independently computed Python cryptography / JavaScript packet comparisons.
+  Packet sequences: 0, 3, 4, 257, 65536, 4294967295.
+  Payload lengths: 1, 7, 8, 31, 255, 1024 bytes.
+  Identical keys and fixed padding produced identical encrypted packet bytes.
+- Python-produced packets decrypted correctly in JavaScript.
+- Incorrect sequence numbers rejected.
+- Altered header, body and tag bytes rejected.
+
+MODEL CHECKS: PASSED
+- All nine control scenarios agree with their expected qualitative outcomes.
+- Four safeguards x 81 (injection, deletion) pairs = 324 trials.
+  Legacy: 9 accepted; reset only: 9 accepted (d=0);
+  reject optional only: 1 accepted; strict KEX: 1 accepted.
+- Matched (1,1): 11 packets verified; EXT_INFO absent from the accepted suffix.
+- Strict handshake rejection occurs before any encrypted deletion.
+- Counter trace agrees with the supplied slide's (Snd,Rcv) values.
+
+BROWSER INTERACTION CHECKS: PASSED
+Browser tested: Chromium 133, headless, opening the standalone file directly.
+- Startup cryptographic self-tests.
+- Scenario selection and all nine final outcomes.
+- Next / Back counter state restoration.
+- Actual attached/computed tag equality and tampering inequality.
+- JSON experiment download and result contents.
+- Four count grids and opening a cell with its original trial seed.
+- Play, pause, restart and keyboard advance.
+- No JavaScript page errors; no external HTTP requests.
+- Responsive checks at widths 1366, 1280, 390 and 320 pixels.
+- Screenshots visually inspected for walkthrough, control table and count grid.
+
+SCOPE
+This validates a teaching implementation and its interface, not a production
+cryptographic library or interoperability with live SSH servers. No full SSH
+handshake, TCP stream, actual host authentication or security-feature downgrade
+was tested. Browser comparison/grid runs are individual trials and are not the
+slides' 17,100-trial Python batch results.

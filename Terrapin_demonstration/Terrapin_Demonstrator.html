@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Terrapin | Interactive classroom demonstrator</title>
+<style>
+:root{color-scheme:light;--ink:#16324a;--muted:#526776;--line:#d8e2e8;--blue:#155ba3;--blue-light:#eaf3ff;--orange:#a34b06;--orange-light:#fff2df;--green:#136447;--green-light:#e5f5ed;--red:#ac263a;--red-light:#ffedf0;--paper:#fff;--ground:#f1f5f8}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button,select,input{accent-color:var(--blue)}button,select{cursor:pointer}button:disabled{cursor:default;opacity:.5}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #c27416;outline-offset:3px}button{border:1px solid #c5d3df;border-radius:8px;background:#fff;color:var(--ink);padding:9px 14px;font-weight:650}button:hover:not(:disabled){background:#edf3f8}button.primary{background:var(--blue);color:white;border-color:var(--blue)}button.primary:hover:not(:disabled){background:#104b89}h1,h2,h3,p{margin:0}h1{font-size:clamp(23px,2.4vw,33px);letter-spacing:-.6px}h2{font-size:23px;line-height:1.25}h3{font-size:17px}code,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.mono{font-size:14px;overflow-wrap:anywhere}small,.small{font-size:13px;color:var(--muted)}header{background:var(--ink);color:#fff;padding:19px max(22px,calc((100vw - 1450px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px}header .eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#bdd2e6;margin-bottom:3px}header p{color:#d6e1ea;font-size:14px;margin-top:3px}header button{background:transparent;color:white;border-color:#5b7388}header button:hover:not(:disabled){background:#284c68}.header-actions{display:flex;align-items:center;gap:14px}.offline{font-size:13px;white-space:nowrap}.offline::before{content:'●';color:#88e0b7;margin-right:7px}.shell{max-width:1500px;margin:auto;padding:0 22px 26px}nav{display:flex;gap:5px;border-bottom:1px solid var(--line);padding:13px 0;margin-bottom:17px;flex-wrap:wrap}nav button{border-color:transparent;background:transparent;font-size:14px}nav button[aria-selected=true]{color:var(--blue);background:var(--blue-light);border-color:#b5cde7}[hidden]{display:none!important}.workspace{display:grid;grid-template-columns:265px minmax(0,1fr);gap:19px}.sidebar,.panel{background:var(--paper);border:1px solid var(--line);border-radius:13px}.sidebar{padding:18px;align-self:start}.sidebar h2{font-size:18px}.field{display:block;margin-top:17px;font-size:14px;font-weight:650}.field select,.field input[type=number]{display:block;width:100%;margin-top:6px;padding:9px 10px;border:1px solid #bacbd8;border-radius:7px;background:#fff;color:var(--ink)}.field input[type=range]{width:100%;margin:12px 0 1px}.field-title{display:flex;justify-content:space-between;gap:8px}.number{font-weight:750;font-size:17px}.range-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.check{display:flex;gap:9px;align-items:start;font-size:14px;margin:18px 0}.check input{width:18px;height:18px;flex-shrink:0;margin-top:2px}.sidebar hr{border:0;border-top:1px solid var(--line);margin:18px 0}.sidebar .help{font-size:13px;color:var(--muted);margin:9px 0 0}.sidebar button{width:100%;margin-top:12px}.main{min-width:0}.panel{padding:18px 23px}.phase-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}.phase{font-size:12px;text-transform:uppercase;letter-spacing:.8px;padding:5px 9px;border-radius:4px;background:#edf1f4;color:var(--muted)}.phase.active{background:var(--blue-light);color:var(--blue);font-weight:750}.step-count{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}.actors{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;align-items:stretch;margin-top:17px}.actor{border-radius:10px;background:#f3f7fa;padding:12px 16px;text-align:center}.actor.attack{background:var(--orange-light)}.actor-title{font-size:19px;font-weight:750}.actor-sub{font-size:12px;color:var(--muted);margin-bottom:5px}.counters{display:flex;gap:18px;justify-content:center}.counter{display:flex;flex-direction:column;align-items:center}.counter span{font-size:12px;color:var(--muted)}.counter b{font-size:32px;line-height:1.2;font-variant-numeric:tabular-nums}.counter.focus b{color:var(--blue)}.attacker-stat{font-size:14px;margin-top:9px}.attacker-stat b{color:var(--orange)}.arrow-scene{width:100%;height:80px;display:block;overflow:visible}.arrow-scene text{font:14px system-ui;fill:var(--muted)}.step-title{font-size:23px;min-height:30px}.explanation{color:#334f64;font-size:16px;min-height:54px;margin-top:8px;max-width:950px}.transport{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}.transport label{margin-left:auto;font-size:13px;color:var(--muted)}.transport select{padding:6px;border:1px solid #c5d3df;border-radius:7px;background:white}.key-hint{font-size:12px;color:var(--muted);margin-top:9px}.packets-panel{margin-top:14px}.section-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.packets{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;margin:12px 0}.packet{padding:8px 2px;border-radius:7px;background:#f5f7f9;border:1px solid var(--line);min-width:0;font-size:12px;font-weight:500;text-align:center}.packet strong{display:block;font-size:13px}.packet small{display:block;font-size:10px;color:inherit;line-height:1.3;margin-top:3px}.packet.pending{opacity:1;color:#6a7d8a}.packet.accepted{color:var(--green);background:var(--green-light);border-color:#b0d6c2}.packet.dropped{color:var(--orange);background:var(--orange-light);border-color:#e6bc7b}.packet.rejected{color:var(--red);background:var(--red-light);border-color:#e8b7c0}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.legend span::before{content:'●';margin-right:5px}.legend .accepted::before{color:var(--green)}.legend .dropped::before{color:var(--orange)}.legend .rejected::before{color:var(--red)}.outcome{border-radius:9px;background:#edf3f8;padding:12px 15px;margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.outcome strong{font-size:19px}.outcome.success{background:var(--green-light);color:var(--green)}.outcome.attack-success{background:var(--orange-light);color:var(--orange)}.outcome.rejected{background:var(--red-light);color:var(--red)}.outcome small{color:inherit}.facts{font-size:13px;display:flex;gap:13px;flex-wrap:wrap}.scope{font-size:12px;color:var(--muted);margin:12px 0 0}.under-panels{margin-top:14px;display:grid;gap:12px}details{background:white;border:1px solid var(--line);border-radius:10px;padding:12px 17px}summary{font-size:14px;font-weight:650;cursor:pointer}details .body{margin-top:12px}.tag-grid{display:grid;grid-template-columns:150px 1fr;gap:8px;font-size:13px}.tag-grid code{word-break:break-all}.scroll-table{overflow-x:auto;margin-top:10px}table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}th,td{padding:10px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f2f6fa;color:var(--muted)}tr.current td{background:var(--blue-light)}.wide-panel{padding:25px}.intro{color:var(--muted);max-width:900px;margin:9px 0 20px}.compare-actions{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.compare-actions p{font-size:13px;color:var(--muted)}.result-chip{display:inline-block;padding:3px 7px;border-radius:4px;font-size:12px;font-weight:700}.result-chip.yes{background:var(--green-light);color:var(--green)}.result-chip.attack{background:var(--orange-light);color:var(--orange)}.result-chip.no{background:var(--red-light);color:var(--red)}.row-open{padding:4px 9px;font-size:12px}.grid-layout{display:grid;grid-template-columns:minmax(360px,650px) minmax(210px,1fr);gap:30px}.count-grid{display:grid;grid-template-columns:28px repeat(9,minmax(0,1fr));gap:5px;margin-top:8px}.cell{padding:10px 0;border-radius:5px;font-size:16px;min-width:0}.cell.pass{background:var(--blue);color:white;border-color:var(--blue)}.cell.fail{background:#eef2f6;color:#516575;border-color:#d7e0e9}.cell.clean{background:var(--green);color:white;border-color:var(--green)}.axis-num{display:grid;place-items:center;font-size:13px;color:var(--muted)}.grid-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grid-controls select{padding:8px;border-radius:6px;border:1px solid #bacbd8;background:white}.grid-side{padding-top:22px}.grid-side h3{margin:17px 0 8px}.grid-side p{margin:9px 0;color:var(--muted);font-size:14px}.math{padding:14px 0;font-size:20px;font-weight:650}.guide-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px}.guide-step{margin:0 0 23px}.guide-step h3{color:var(--blue);margin-bottom:6px}.guide-step p{font-size:15px;color:#3e576a}.guide-step button{margin-top:8px;font-size:13px}.glossary dt{font-weight:700;margin-top:12px}.glossary dd{margin:3px 0;color:var(--muted);font-size:14px}.guide-columns ul{padding-left:20px;color:var(--muted);font-size:14px}.sources a{color:var(--blue)}footer{font-size:12px;color:var(--muted);padding-top:17px;display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}.fatal{padding:25px;background:var(--red-light);color:var(--red)}
+@media(min-width:1400px){.panel{padding:21px 28px}.actor{padding:15px}.step-title{font-size:26px}.counter b{font-size:38px}.arrow-scene{height:90px}}
+@media(min-width:981px) and (max-height:850px){header{padding-top:12px;padding-bottom:12px}header h1{font-size:26px}header .eyebrow{font-size:11px}nav{padding:8px 0;margin-bottom:12px}.panel{padding:13px 18px}.phase-row{margin-bottom:9px}.actors{margin-top:10px}.actor{padding:8px 12px}.counter b{font-size:29px}.arrow-scene{height:60px}.explanation{font-size:15px;min-height:45px;margin-top:5px}.transport{margin-top:10px;padding-top:10px}.transport button{padding:7px 10px}.step-title{font-size:21px}.packets-panel{margin-top:10px}.packets{margin:8px 0}.outcome{margin-top:8px;padding:9px 12px}.scope{margin-top:8px}.key-hint{margin-top:6px}.sidebar{padding:14px}.field{margin-top:12px}.sidebar hr{margin:12px 0}.sidebar .check{margin:13px 0}.sidebar .help{font-size:12px}}
+@media(max-width:980px){.workspace{grid-template-columns:230px minmax(0,1fr)}.shell{padding:0 14px 20px}.panel{padding:16px}.actors{gap:8px}.actor{padding:10px 5px}.actor-title{font-size:17px}.counters{gap:13px}.packets{grid-template-columns:repeat(6,minmax(0,1fr))}.grid-layout{grid-template-columns:1fr}.grid-side{padding-top:0}.transport label{margin-left:0}.step-title{font-size:20px}}
+@media(max-width:720px){header{padding:16px;align-items:start}.header-actions{flex-direction:column;gap:8px}.offline{font-size:11px}.workspace{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:0 17px;padding:15px}.sidebar h2,.sidebar .help,.sidebar hr{grid-column:1/-1}.sidebar .field{margin-top:12px}.sidebar hr{margin:12px 0 0}.sidebar .check{margin:12px 0}.sidebar button{align-self:start}.sidebar h2{font-size:17px}.guide-columns{grid-template-columns:1fr}.actors{gap:5px}.counter b{font-size:28px}.actor-sub{font-size:11px}.attacker-stat{font-size:12px}.step-count{margin-left:0}.tag-grid{grid-template-columns:1fr}.wide-panel{padding:17px}.grid-layout{display:block}.grid-side{margin-top:18px}.count-grid{gap:3px}.cell{padding:8px 0}.explanation{font-size:15px}.header-actions button{font-size:12px;padding:7px}nav{gap:0}nav button{padding:8px;font-size:13px}.key-hint{display:none}}
+@media(prefers-reduced-motion:no-preference){.counter b{transition:color .15s}.flow-line{stroke-dasharray:9 5;animation:flow .7s linear 2}@keyframes flow{to{stroke-dashoffset:-28}}}
+</style>
+</head>
+<body>
+<header><div><div class="eyebrow">COE576 · Safianu Umar</div><h1>Terrapin, one packet at a time</h1><p>Watch the handshake. Change the counters. Verify the surviving packets.</p></div><div class="header-actions"><span class="offline">Works offline</span><button id="fullscreen" type="button">Full screen</button></div></header>
+<div class="shell">
+<nav aria-label="Simulator views" role="tablist">
+<button id="tab-demo" role="tab" aria-controls="demo" aria-selected="true" data-tab="demo">Handshake walkthrough</button>
+<button id="tab-controls" role="tab" aria-controls="controls" aria-selected="false" data-tab="controls">Compare 9 controls</button>
+<button id="tab-grid" role="tab" aria-controls="grid" aria-selected="false" data-tab="grid">Injection × deletion</button>
+<button id="tab-guide" role="tab" aria-controls="guide" aria-selected="false" data-tab="guide">Presentation guide</button>
+</nav>
+<main>
+<section id="demo" role="tabpanel" aria-labelledby="tab-demo">
+<div class="workspace">
+<aside class="sidebar"><h2>Choose an experiment</h2>
+<label class="field">Scenario<select id="scenario" aria-label="Scenario"></select></label>
+<label class="field">Handshake safeguards<select id="mode"><option value="legacy">Legacy: neither safeguard</option><option value="reset">Reset counters only</option><option value="reject">Reject optional messages only</option><option value="strict">Strict KEX: both safeguards</option></select></label>
+<label class="field"><span class="field-title"><span>Inject IGNORE messages</span><output id="i-value" class="number">1</output></span><input id="injections" type="range" min="0" max="8" step="1" value="1"><span class="range-ends"><span>0</span><span>8</span></span></label>
+<label class="field"><span class="field-title"><span>Delete initial packets</span><output id="d-value" class="number">1</output></span><input id="deletions" type="range" min="0" max="8" step="1" value="1"><span class="range-ends"><span>0</span><span>8</span></span></label>
+<label class="check"><input id="tamper" type="checkbox"><span>Flip one ciphertext bit in the first retained packet</span></label>
+<hr><p class="help">Changing a setting restarts the walkthrough. Strict KEX assumes both endpoints negotiated the safeguards.</p>
+<button id="export" type="button">Save this experiment</button>
+<p class="help">Repeatable teaching seed: <strong id="seed-label">57611</strong>. New seeds are used for batch cells. One cipher: SSH-style ChaCha20–Poly1305.</p>
+</aside>
+<div class="main">
+<div class="panel">
+<div class="phase-row"><span class="phase active" id="phase-handshake">Handshake</span><span class="phase" id="phase-keys">NEWKEYS</span><span class="phase" id="phase-packets">Protected packets</span><span class="step-count" id="step-count">Ready</span></div>
+<div class="section-row"><h2 id="step-title" class="step-title">Ready to start</h2></div>
+<div class="actors">
+<div class="actor"><div class="actor-title">Client</div><div class="actor-sub">Receiver in the attacked direction</div><div class="counters"><div class="counter"><span>Snd</span><b id="cs">0</b></div><div class="counter focus"><span>Rcv · watch this</span><b id="cr">0</b></div></div></div>
+<div class="actor attack"><div class="actor-title">On-path attacker</div><div class="actor-sub">No session key</div><div class="attacker-stat"><b id="actual-i">0</b> injected<br><b id="actual-d">0</b> deleted</div></div>
+<div class="actor"><div class="actor-title">Server</div><div class="actor-sub">Sender in the attacked direction</div><div class="counters"><div class="counter focus"><span>Snd · watch this</span><b id="ss">0</b></div><div class="counter"><span>Rcv</span><b id="sr">0</b></div></div></div>
+</div>
+<svg id="scene" class="arrow-scene" role="img" aria-label="Current packet movement"></svg>
+<p id="explanation" class="explanation" aria-live="polite"></p>
+<div class="transport"><button id="back" type="button">← Back</button><button id="next" class="primary" type="button">Next step →</button><button id="play" type="button">Play</button><button id="finish" type="button">Show outcome</button><button id="restart" type="button">Restart</button><label>Speed <select id="speed" aria-label="Playback speed"><option value="1800">Slow</option><option value="1000" selected>Normal</option><option value="450">Fast</option></select></label></div>
+<p class="key-hint">Keyboard: → next · ← back · Space play/pause · R restart. Numbers show the next packet numbers after each event.</p>
+</div>
+<div class="panel packets-panel"><div class="section-row"><h3>The 12 protected server packets</h3><span class="small">Click a processed packet to revisit its event</span></div><div id="packets" class="packets"></div><div class="legend"><span>Pending</span><span class="accepted">Verified</span><span class="dropped">Deleted</span><span class="rejected">Rejected</span></div><div id="outcome" class="outcome" aria-live="polite"><strong>In progress</strong><div class="facts" id="facts"></div></div><p class="scope">Teaching model: no TCP, live SSH endpoints or measured feature downgrade. Handshake events are schematic; retained server packets undergo actual tag checks and decryption.</p></div>
+<div class="under-panels"><details id="tag-details"><summary>Inspect the authentication check</summary><div class="body" id="tag-body">Step to a retained encrypted packet to compare its attached tag with the receiver's computed tag.</div></details><details><summary>Event log and all four counters</summary><div class="scroll-table"><table><thead><tr><th>Event</th><th>Client<br>Snd / Rcv</th><th>Server<br>Snd / Rcv</th></tr></thead><tbody id="event-log"></tbody></table></div></details></div>
+</div></div>
+</section>
+<section id="controls" role="tabpanel" aria-labelledby="tab-controls" hidden><div class="panel wide-panel"><h2>Can the receiver tell the difference?</h2><p class="intro">Run the same nine controls as the presentation. Each row performs one new local cryptographic trial. These are live demonstrations, not the slide's 1,000-trial batch totals.</p><div class="compare-actions"><button id="run-controls" class="primary">Run all 9 controls</button><p id="control-summary" aria-live="polite">Ready to compare.</p></div><div class="scroll-table"><table><thead><tr><th>Scenario</th><th>(i, d)</th><th>Outcome</th><th>Verified</th><th>Interpretation</th><th></th></tr></thead><tbody id="controls-body"></tbody></table></div></div></section>
+<section id="grid" role="tabpanel" aria-labelledby="tab-grid" hidden><div class="panel wide-panel"><h2>When do the counts line up?</h2><p class="intro">Rows are injected handshake messages; columns are deleted initial encrypted packets. Every cell runs a separate real tag-check trial. Select a cell to open that experiment in the walkthrough.</p><div class="grid-controls"><label for="grid-mode">Safeguards</label><select id="grid-mode"><option value="legacy">Legacy</option><option value="reset">Reset counters only</option><option value="reject">Reject optional only</option><option value="strict">Strict KEX model</option></select><button id="run-grid" class="primary">Run 81 combinations</button><span class="small" id="grid-status" aria-live="polite">No trials run yet.</span></div><div class="grid-layout"><div><p class="small" style="margin-top:20px">Columns: deleted packets d → &nbsp; Rows: injected messages i ↓</p><div class="count-grid" id="count-grid" role="group" aria-label="Acceptance for injection and deletion counts"></div><p class="small" style="margin-top:12px">✓ Accepted · × Rejected · Green (0,0): accepted clean traffic</p></div><div class="grid-side"><h3>The prediction to test</h3><div class="math">Receiver expects s + i<br>First survivor used s + d</div><p>In the legacy model, matching counts restore alignment: <strong>i = d</strong>. Acceptance is still decided by the actual tag and payload checks.</p><h3>Try a defence</h3><p>Run the grid again with strict KEX. Injected messages are rejected, and resetting counters prevents a carried-over offset.</p><h3>Keep the claim precise</h3><p>This grid is 81 trials, one per cell. The presentation's heatmap used 100 trials per cell. Accepted prefix deletion does not prove a usable login.</p></div></div></div></section>
+<section id="guide" role="tabpanel" aria-labelledby="tab-guide" hidden><div class="panel wide-panel"><h2>A short demonstration you can teach</h2><p class="intro">Allow 2–3 minutes. Ask the audience to predict the result before choosing “Show outcome”. Use the handshake walkthrough for the matched attack.</p><div class="guide-columns"><div>
+<div class="guide-step"><h3>1 · Establish normal behaviour</h3><p>“With no injection or deletion, all twelve packets verify. EXT_INFO arrives.”</p><button data-preset="clean">Open clean legacy</button></div>
+<div class="guide-step"><h3>2 · Delete one packet without compensation</h3><p>“The client expects packet three, but the next server packet is four. The authentication check fails.”</p><button data-preset="drop">Open drop only</button></div>
+<div class="guide-step"><h3>3 · Add one, remove one</h3><p>“Watch client Rcv move ahead when IGNORE arrives. NEWKEYS preserves the offset. Deleting EXT_INFO lets the server catch up. The remaining eleven genuine packets verify.”</p><button data-preset="matched">Open matched truncation</button></div>
+<div class="guide-step"><h3>4 · Turn on strict KEX</h3><p>“The unexpected IGNORE is rejected during the handshake. The connection never reaches the deletion step.”</p><button data-preset="strict">Open strict KEX</button></div>
+<div class="guide-step"><h3>5 · End with the lesson</h3><p>“Valid packets do not guarantee a complete conversation. The transition into encryption must also be protected.”</p></div>
+</div><div><h3>Words to explain</h3><dl class="glossary"><dt>Snd / Rcv</dt><dd>Next outgoing / expected incoming packet numbers. Compare server Snd with client Rcv for the attacked direction.</dd><dt>Inject / delete</dt><dd>Insert an extra handshake message / remove an initial encrypted packet.</dd><dt>Accepted</dt><dd>Every retained packet passes tag, framing and expected-payload checks.</dd><dt>Rejected</dt><dd>An unexpected handshake message or failed packet check stops the receiver.</dd><dt>Attack success</dt><dd>An accepted suffix after actual prefix deletion. Clean acceptance is not an attack.</dd><dt>EXT_INFO</dt><dd>An extension advertisement. Its loss is shown; a real feature downgrade is not measured.</dd></dl><h3 style="margin-top:24px">What is implemented?</h3><ul><li>Original ChaCha20 with SSH's sequence-number nonce.</li><li>Separate encryption keys for length and body.</li><li>Poly1305 authentication over encrypted length and body.</li><li>Real tag verification, decryption and payload comparison.</li><li>Known packet boundaries and shared test keys.</li><li>Schematic handshake and reverse-direction request; no real server authentication or key exchange.</li></ul><p class="small">Reproducibility: xorshift32 supplies public teaching keys and padding from a seed. This differs from Python's random generator; bytes will differ from the original batch. This is educational code, not a production cryptographic library.</p></div></div><div class="sources small" style="margin-top:20px">Read more: <a href="https://terrapin-attack.com/" target="_blank" rel="noopener">Terrapin authors</a> · <a href="https://www.openssh.org/txt/release-9.6" target="_blank" rel="noopener">OpenSSH strict KEX</a> · <a href="https://www.openssh.org/specs.html" target="_blank" rel="noopener">SSH specifications</a>. Links are optional; the simulator itself uses no network.</div></div></section>
+</main><footer><span>COE576 · Terrapin reproduction demonstrator · Browser edition</span><span id="self-test">Checking cryptographic test vectors…</span></footer>
+</div>
+<noscript><div class="fatal">Enable JavaScript to run this offline simulator.</div></noscript>
+<script>
+/* COE576 offline teaching model. Not a networking stack or production crypto library.
+ * Original ChaCha20 (64-bit counter / 64-bit nonce), SSH split header/body keys,
+ * sequence-number nonce, and Poly1305 over encrypted length + encrypted body.
+ * Packet boundaries, session keys and handshake events are supplied by the model.
+ */
+(function (root) {
+  'use strict';
+  const enc = new TextEncoder();
+  const bytes = x => typeof x === 'string' ? enc.encode(x) : new Uint8Array(x);
+  const concat = (...xs) => { const out = new Uint8Array(xs.reduce((n,x)=>n+x.length,0)); let o=0; for(const x of xs){out.set(x,o);o+=x.length;} return out; };
+  const hex = x => Array.from(x,b=>b.toString(16).padStart(2,'0')).join('');
+  const unhex = s => new Uint8Array(s.match(/../g).map(v=>parseInt(v,16)));
+  const be32 = n => new Uint8Array([n>>>24,n>>>16,n>>>8,n]);
+  const string = s => {s=bytes(s);return concat(be32(s.length),s);};
+  const equal = (a,b) => {if(a.length!==b.length)return false;let x=0;for(let i=0;i<a.length;i++)x|=a[i]^b[i];return x===0;};
+  const rot = (n,k) => ((n<<k)|(n>>>(32-k)))>>>0;
+  function quarter(x,a,b,c,d){
+    x[a]=(x[a]+x[b])>>>0;x[d]=rot(x[d]^x[a],16);
+    x[c]=(x[c]+x[d])>>>0;x[b]=rot(x[b]^x[c],12);
+    x[a]=(x[a]+x[b])>>>0;x[d]=rot(x[d]^x[a],8);
+    x[c]=(x[c]+x[d])>>>0;x[b]=rot(x[b]^x[c],7);
+  }
+  function stream(key,seq,counter,data){
+    if(key.length!==32)throw Error('ChaCha20 requires a 32-byte key.');
+    const initial=new Uint32Array(16),v=new DataView(key.buffer,key.byteOffset,key.byteLength);
+    initial.set([0x61707865,0x3320646e,0x79622d32,0x6b206574]);
+    for(let i=0;i<8;i++)initial[4+i]=v.getUint32(i*4,true);
+    initial[12]=counter>>>0;initial[13]=Math.floor(counter/4294967296)>>>0;
+    const nonce=concat(new Uint8Array(4),be32(seq>>>0));
+    const nv=new DataView(nonce.buffer);initial[14]=nv.getUint32(0,true);initial[15]=nv.getUint32(4,true);
+    const out=new Uint8Array(data.length);
+    for(let off=0;off<data.length;off+=64){
+      const x=new Uint32Array(initial);
+      for(let r=0;r<10;r++){
+        quarter(x,0,4,8,12);quarter(x,1,5,9,13);quarter(x,2,6,10,14);quarter(x,3,7,11,15);
+        quarter(x,0,5,10,15);quarter(x,1,6,11,12);quarter(x,2,7,8,13);quarter(x,3,4,9,14);
+      }
+      const block=new Uint8Array(64),bv=new DataView(block.buffer);
+      for(let j=0;j<16;j++)bv.setUint32(j*4,(x[j]+initial[j])>>>0,true);
+      for(let j=0;j<64 && off+j<data.length;j++)out[off+j]=data[off+j]^block[j];
+      initial[12]=(initial[12]+1)>>>0;if(initial[12]===0)initial[13]=(initial[13]+1)>>>0;
+    }
+    return out;
+  }
+  function little(x){let n=0n;for(let i=x.length-1;i>=0;i--)n=(n<<8n)+BigInt(x[i]);return n;}
+  function poly1305(key,data){
+    const r=little(key.slice(0,16))&0x0ffffffc0ffffffc0ffffffc0fffffffn;
+    const s=little(key.slice(16,32)),p=(1n<<130n)-5n;let a=0n;
+    for(let i=0;i<data.length;i+=16){const b=data.slice(i,i+16);a=((a+little(b)+(1n<<BigInt(8*b.length)))*r)%p;}
+    let tag=(a+s)&((1n<<128n)-1n);const out=new Uint8Array(16);
+    for(let i=0;i<16;i++){out[i]=Number(tag&255n);tag>>=8n;}return out;
+  }
+  function generator(seed){let n=(seed>>>0)||0x9e3779b9;return count=>{const out=new Uint8Array(count);for(let i=0;i<count;i++){n^=n<<13;n^=n>>>17;n^=n<<5;out[i]=n&255;}return out;};}
+  function seal(key,payload,seq,rng){
+    if(key.length!==64)throw Error('SSH model requires 64 key bytes.');
+    let pad=8-((1+payload.length)%8);if(pad<4)pad+=8;
+    const body=concat(new Uint8Array([pad]),payload,rng(pad));
+    const main=key.slice(0,32),header=key.slice(32);
+    const wire=concat(stream(header,seq,0,be32(body.length)),stream(main,seq,1,body));
+    return concat(wire,poly1305(stream(main,seq,0,new Uint8Array(32)),wire));
+  }
+  function open(key,wire,seq){
+    if(wire.length<24)return {ok:false,reason:'Packet too short',attached:'',computed:''};
+    const ct=wire.slice(0,-16),tag=wire.slice(-16),main=key.slice(0,32);
+    const computed=poly1305(stream(main,seq,0,new Uint8Array(32)),ct);
+    const evidence={attached:hex(tag),computed:hex(computed),ciphertext:hex(ct)};
+    if(!equal(tag,computed))return {...evidence,ok:false,reason:'Authentication tag mismatch'};
+    const lb=stream(key.slice(32),seq,0,ct.slice(0,4));
+    const length=new DataView(lb.buffer).getUint32(0,false);
+    if(length!==ct.length-4||length%8!==0)return {...evidence,ok:false,reason:'Invalid packet length'};
+    const body=stream(main,seq,1,ct.slice(4)),pad=body[0];
+    if(pad<4||pad+1>=body.length)return {...evidence,ok:false,reason:'Invalid padding'};
+    return {...evidence,ok:true,payload:body.slice(1,-pad),reason:'Tag and framing verified'};
+  }
+  function messages(){return [concat(new Uint8Array([7]),be32(1),string('ping@openssh.com'),string('0')),concat(new Uint8Array([6]),string('ssh-userauth')),...Array.from({length:10},()=>concat(new Uint8Array([2]),string('offline filler')))];}
+  const presets=[
+    {id:'clean',name:'1. Clean legacy',i:0,d:0,mode:'legacy',tamper:false},
+    {id:'drop',name:'2. Drop only',i:0,d:1,mode:'legacy',tamper:false},
+    {id:'inject',name:'3. Inject only',i:1,d:0,mode:'legacy',tamper:false},
+    {id:'matched',name:'4. Matched truncation',i:1,d:1,mode:'legacy',tamper:false},
+    {id:'reset',name:'5. Reset counters only',i:1,d:1,mode:'reset',tamper:false},
+    {id:'reject',name:'6. Reject optional only',i:1,d:1,mode:'reject',tamper:false},
+    {id:'strict',name:'7. Strict KEX model',i:1,d:1,mode:'strict',tamper:false},
+    {id:'tamper',name:'8. Tampered ciphertext',i:1,d:1,mode:'legacy',tamper:true},
+    {id:'clean-strict',name:'9. Clean strict KEX',i:0,d:0,mode:'strict',tamper:false}
+  ];
+  function simulate(options={}){
+    const o={i:1,d:1,mode:'legacy',tamper:false,seed:57611,...options};
+    if(!Number.isInteger(o.i)||!Number.isInteger(o.d)||o.i<0||o.i>8||o.d<0||o.d>8||!['legacy','reset','reject','strict'].includes(o.mode))throw Error('Invalid scenario');
+    const reset=['reset','strict'].includes(o.mode),reject=['reject','strict'].includes(o.mode);
+    const rng=generator(o.seed),key=rng(64),payloads=messages();
+    let cs=0,cr=0,ss=0,sr=0,accepted=0,dropped=0,injected=0,ext='Not sent',phase='Handshake';
+    const states=Array(12).fill('pending'),trace=[],packets=[];
+    function snap(title,detail,kind='normal',direction='none',extra={}){
+      trace.push({title,detail,kind,direction,cs,cr,ss,sr,accepted,dropped,injected,ext,phase,states:[...states],...extra});
+    }
+    function finish(ok,status){
+      const result={accepted:ok,prefix_removed:ok&&dropped>0,ext_missing:ok&&ext==='Dropped',status,received:accepted,actual_dropped:dropped,actual_injected:injected};
+      const title=ok?(dropped?'Accepted suffix; prefix missing':'Accepted complete stream'):'Rejected';
+      const detail=ok?(dropped?`${accepted} genuine packets passed. ${dropped} initial packet(s) are missing. This does not establish a usable login or a real feature downgrade.`:'All 12 protected packets passed. No deletion occurred; this is not attack success.'):(status==='handshake_rejected'?'The receiver stopped at the unexpected handshake message. The planned encrypted deletion was never reached.':'The receiver stopped at its first failed packet check. No later packets are processed.');
+      phase='Finished';snap(title,detail,ok?(dropped?'attack-success':'success'):'rejected','none',{result});
+      return {options:o,trace,result,packets};
+    }
+    snap('Ready to start','Follow server Snd and client Rcv for the attacked server-to-client direction. Numbers are the next packet numbers after each event.');
+    snap('Exchange version strings','Version strings are not SSH binary packets, so these counters stay at zero.','normal','both');
+    cs++;cr++;ss++;sr++;snap('KEXINIT: algorithm choices','Each endpoint sends and receives one binary packet. The teaching model selects the SSH ChaCha20-Poly1305 construction.','normal','both');
+    cs++;sr++;snap('KEXDH_INIT: client contribution','The client sends its public Diffie-Hellman contribution. Key exchange is schematic here: a shared test key is supplied to the packet model.','normal','client-server');
+    ss++;cr++;snap('KEXDH_REPLY: server contribution','The real exchange carries the server contribution, host key and signature. This model assumes correct server authentication; it does not implement that verification.','normal','server-client');
+    for(let j=0;j<o.i;j++){
+      if(reject){snap('Unexpected IGNORE rejected','The negotiated safeguard refuses this optional handshake message before accepting it. The connection aborts.','rejected','attacker-client');return finish(false,'handshake_rejected');}
+      cr++;injected++;snap(`Inject IGNORE ${j+1} of ${o.i}`,'The client counts an extra packet. The server sent nothing, so its Snd stays unchanged.','injected','attacker-client');
+    }
+    ss++;cr++;if(reset){ss=0;cr=0;}
+    snap('Server NEWKEYS',reset?'Server Snd and client Rcv reset to zero. The injected offset is erased in this direction.':'Server-to-client encryption becomes active. Legacy counters keep their values, including any injected offset.','newkeys','server-client');
+    cs++;sr++;if(reset){cs=0;sr=0;}phase='Encrypted packets';
+    snap('Client NEWKEYS',reset?'Client Snd and server Rcv also reset. Both directions now use the new test keys.':'Client-to-server encryption becomes active. No legacy counter is reset.','newkeys','client-server');
+    for(let j=0;j<12;j++){
+      if(j===1){cs++;sr++;snap('SERVICE_REQUEST: ssh-userauth','This request travels in the other direction. It changes client Snd and server Rcv, not the attacked pair. Its transport is schematic in this one-direction packet model.','normal','client-server');}
+      const seq=ss;let wire=seal(key,payloads[j],seq,rng);ss++;
+      const name=j===0?'EXT_INFO':j===1?'SERVICE_ACCEPT':`Filler ${j-1}`;
+      if(j<o.d){
+        dropped++;states[j]='dropped';if(j===0)ext='Dropped';
+        packets.push({index:j,name,seq,wire:hex(wire),status:'dropped'});
+        snap(`Delete ${name} (packet #${seq})`,'The server counts the packet it sent. The client receives nothing and does not advance.','dropped','server-attacker',{packet:j,sentSeq:seq,expectedSeq:cr});continue;
+      }
+      let tampered=false;if(o.tamper&&j===o.d){wire=wire.slice();wire[5]^=1;tampered=true;}
+      const expected=cr,check=open(key,wire,expected);
+      if(check.ok&&!equal(check.payload,payloads[j])){check.ok=false;check.reason='Recovered payload differs from the expected suffix';}
+      const evidence={attached:check.attached,computed:check.computed,ciphertext:check.ciphertext,ok:check.ok,reason:check.reason,sentSeq:seq,expectedSeq:expected,tampered};
+      states[j]=check.ok?'accepted':'rejected';packets.push({index:j,name,seq,wire:hex(wire),status:states[j]});
+      if(check.ok){accepted++;cr++;if(j===0)ext='Received';}
+      else if(j===0)ext='Rejected';
+      snap(`${name}: ${check.ok?'tag verified':'check failed'}`,check.ok?`Sender used #${seq}; receiver expected #${expected}. The actual tag and decrypted contents pass.`:(tampered?(seq===expected?'A ciphertext bit was changed. Even with matching counters, the original authentication tag no longer verifies.':`A ciphertext bit was changed, and the counters also differ: sender #${seq}, receiver #${expected}. Verification fails.`):`Sender used #${seq}; receiver expected #${expected}. Their different packet numbers produce different authentication keys.`),check.ok?'verified':'rejected','server-client',{packet:j,check:evidence});
+      if(!check.ok)return finish(false,'packet_rejected');
+    }
+    return finish(true,'accepted');
+  }
+  const api={stream,poly1305,seal,open,messages,generator,hex,unhex,bytes,presets,simulate};
+  if(typeof module!=='undefined'&&module.exports)module.exports=api;
+  else root.Terrapin=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+'use strict';
+(() => {
+  const $=id=>document.getElementById(id), E=window.Terrapin;
+  let trial,index=0,timer=null,activeTab='demo',gridBusy=false,currentSeed=57611;
+  const ns='http://www.w3.org/2000/svg';
+  const modeNames={legacy:'Legacy',reset:'Reset only',reject:'Reject optional only',strict:'Strict KEX'};
+  function options(){return {i:Number($('injections').value),d:Number($('deletions').value),mode:$('mode').value,tamper:$('tamper').checked,seed:currentSeed};}
+  function stop(){if(timer!==null)clearTimeout(timer);timer=null;$('play').textContent='Play';}
+  function selectTab(id){stop();activeTab=id;for(const b of document.querySelectorAll('[data-tab]')){const yes=b.dataset.tab===id;b.setAttribute('aria-selected',String(yes));$(b.getAttribute('aria-controls')).hidden=!yes;}if(id==='demo')drawArrow(trial.trace[index]);}
+  function restart(){stop();trial=E.simulate(options());index=0;$('i-value').textContent=trial.options.i;$('d-value').textContent=trial.options.d;$('seed-label').textContent=currentSeed;render();}
+  function preset(id){const p=E.presets.find(p=>p.id===id);if(!p)return;currentSeed=57611;$('scenario').value=id;$('injections').value=p.i;$('deletions').value=p.d;$('mode').value=p.mode;$('tamper').checked=p.tamper;restart();}
+  function custom(){const o=options(),p=E.presets.find(p=>p.i===o.i&&p.d===o.d&&p.mode===o.mode&&p.tamper===o.tamper);$('scenario').value=p?p.id:'custom';restart();}
+  function go(n){index=Math.max(0,Math.min(n,trial.trace.length-1));if(index===trial.trace.length-1)stop();render();}
+  function tick(){if(index>=trial.trace.length-1){stop();return;}go(index+1);if(index<trial.trace.length-1){timer=setTimeout(tick,Number($('speed').value));$('play').textContent='Pause';}}
+  function play(){if(timer!==null){stop();return;}if(index===trial.trace.length-1)go(0);timer=setTimeout(tick,Number($('speed').value));$('play').textContent='Pause';}
+  function svg(tag,attrs,text){const el=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
+  function drawArrow(t){
+    const s=$('scene'),w=s.getBoundingClientRect().width||700;s.replaceChildren();s.setAttribute('viewBox',`0 0 ${w} 80`);
+    const c=w/6,a=w/2,r=5*w/6;
+    for(const x of [c,a,r])s.append(svg('line',{x1:x,y1:0,x2:x,y2:73,stroke:'#cbd9e3','stroke-dasharray':'3 5'}));
+    if(t.direction==='none'){s.append(svg('text',{x:w/2,y:46,'text-anchor':'middle'},index===0?'Next step begins the exchange':'End of this experiment'));return;}
+    const color=['injected','dropped'].includes(t.kind)?'#a34b06':t.kind==='rejected'?'#ac263a':'#155ba3';
+    const defs=svg('defs'),marker=svg('marker',{id:'arrow-tip',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'});
+    marker.append(svg('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:color}));defs.append(marker);s.append(defs);
+    let from=r,to=c;if(t.direction==='client-server'){from=c;to=r;}if(t.direction==='attacker-client'){from=a;to=c;}if(t.direction==='server-attacker'){from=r;to=a;}
+    const attrs={x1:from,y1:33,x2:to,y2:33,stroke:color,'stroke-width':3,'marker-end':'url(#arrow-tip)',class:'flow-line'};
+    if(t.direction==='both'){attrs.x1=c;attrs.x2=r;attrs['marker-start']='url(#arrow-tip)';}s.append(svg('line',attrs));
+    if(t.kind==='dropped')s.append(svg('text',{x:a,y:63,'text-anchor':'middle',style:'fill:#a34b06;font-weight:700'},'Deleted here'));
+    else s.append(svg('text',{x:w/2,y:64,'text-anchor':'middle'},t.direction==='attacker-client'?'Injected toward the client':t.direction==='client-server'?'Client → server':t.direction==='both'?'Both endpoints exchange messages':'Server → client'));
+    s.setAttribute('aria-label',`${t.title}: ${t.direction.replaceAll('-',' to ')}`);
+  }
+  function render(){
+    const t=trial.trace[index];$('step-title').textContent=t.title;$('explanation').textContent=t.detail;$('step-count').textContent=`Step ${index} / ${trial.trace.length-1}`;
+    for(const k of ['cs','cr','ss','sr'])$(k).textContent=t[k];$('actual-i').textContent=t.injected;$('actual-d').textContent=t.dropped;
+    const which=t.kind==='newkeys'?'keys':(t.phase==='Handshake'||t.result?.status==='handshake_rejected')?'handshake':'packets';
+    for(const k of ['handshake','keys','packets'])$('phase-'+k).classList.toggle('active',which===k);
+    $('back').disabled=index===0;$('next').disabled=index===trial.trace.length-1;$('finish').disabled=index===trial.trace.length-1;
+    $('packets').replaceChildren();
+    t.states.forEach((state,j)=>{
+      const b=document.createElement('button');b.type='button';b.className=`packet ${state}`;b.disabled=state==='pending';
+      const label=j===0?'EXT':j===1?'SVC':`F${j-1}`,full=j===0?'EXT_INFO':j===1?'SERVICE_ACCEPT':`Filler ${j-1}`;
+      const strong=document.createElement('strong');strong.textContent=label;const small=document.createElement('small');small.textContent=state==='accepted'?'✓ verified':state==='dropped'?'− deleted':state==='rejected'?'× failed':'waiting';b.append(strong,small);b.setAttribute('aria-label',`${full}: ${state}`);b.title=`${full}: ${state}`;
+      b.onclick=()=>{stop();const n=trial.trace.findIndex(x=>x.packet===j);if(n>=0)go(n);};$('packets').append(b);
+    });
+    const outcome=$('outcome');outcome.className='outcome'+(t.result?' '+t.kind:'');outcome.querySelector('strong').textContent=t.result?t.title:'In progress';
+    $('facts').replaceChildren();for(const label of [`${t.accepted} verified`,`${t.dropped} deleted`,`EXT_INFO: ${t.ext.toLowerCase()}`]){const span=document.createElement('span');span.textContent=label;$('facts').append(span);}
+    const checkStep=trial.trace.slice(0,index+1).reverse().find(x=>x.check);const body=$('tag-body');body.replaceChildren();
+    if(!checkStep)body.textContent='Step to a retained encrypted packet to compare its attached tag with the receiver’s computed tag.';
+    else{
+      const z=checkStep.check,p=document.createElement('p');p.className='small';p.style.marginBottom='10px';p.textContent=`Most recent check: ${checkStep.title}. Sender number ${z.sentSeq}; receiver expected ${z.expectedSeq}. ${z.reason}.`;body.append(p);
+      const g=document.createElement('div');g.className='tag-grid';for(const [label,value] of [['Attached tag',z.attached],['Receiver computed',z.computed],['Ciphertext',z.ciphertext]]){const l=document.createElement('strong');l.textContent=label;const v=document.createElement('code');v.textContent=value;g.append(l,v);}body.append(g);
+      const note=document.createElement('p');note.className='small';note.style.marginTop='10px';note.textContent='Both tags are computed from actual packet bytes. Matching tags are followed by length, padding and expected-payload checks. Deleting an entire packet does not alter the tag on a surviving packet.';body.append(note);
+    }
+    $('event-log').replaceChildren();trial.trace.slice(1,index+1).forEach((x,n)=>{const tr=document.createElement('tr');if(n+1===index)tr.className='current';for(const text of [x.title,`${x.cs} / ${x.cr}`,`${x.ss} / ${x.sr}`]){const td=document.createElement('td');td.textContent=text;tr.append(td);}$('event-log').append(tr);});
+    drawArrow(t);
+  }
+  function loadOptions(o){currentSeed=o.seed??57611;$('injections').value=o.i;$('deletions').value=o.d;$('mode').value=o.mode;$('tamper').checked=!!o.tamper;custom();selectTab('demo');}
+  const descriptions={clean:'Complete stream; no attack',drop:'Uncompensated deletion',inject:'Counter offset remains',matched:'EXT_INFO missing from accepted suffix',reset:'Reset erased the offset',reject:'Handshake stopped before deletion',strict:'Handshake stopped before deletion',tamper:'Changed ciphertext fails verification','clean-strict':'Safeguards allow clean traffic'};
+  function runControls(){
+    $('controls-body').replaceChildren();let accepted=0;
+    for(const [n,p] of E.presets.entries()){
+      const r=E.simulate({...p,seed:57611+n}).result;if(r.accepted)accepted++;
+      const tr=document.createElement('tr');const values=[p.name,`(${p.i}, ${p.d})`,null,`${r.received} / 12`,descriptions[p.id],null];
+      values.forEach((text,k)=>{const td=document.createElement('td');if(k===2){const chip=document.createElement('span');chip.className='result-chip '+(r.prefix_removed?'attack':r.accepted?'yes':'no');chip.textContent=r.prefix_removed?'Accepted suffix':r.accepted?'Accepted clean':'Rejected';td.append(chip);}else if(k===5){const b=document.createElement('button');b.className='row-open';b.textContent='Show';b.onclick=()=>{preset(p.id);selectTab('demo');};td.append(b);}else td.textContent=text;tr.append(td);});$('controls-body').append(tr);
+    }
+    $('control-summary').textContent=`9 live trials completed: ${accepted} accepted, ${9-accepted} rejected. Two accepted cases are clean; one has prefix deletion.`;
+  }
+  function emptyGrid(){const g=$('count-grid');g.replaceChildren();g.append(document.createElement('span'));for(let d=0;d<9;d++){const n=document.createElement('span');n.className='axis-num';n.textContent=d;g.append(n);}for(let i=0;i<9;i++){const n=document.createElement('span');n.className='axis-num';n.textContent=i;g.append(n);for(let d=0;d<9;d++){const b=document.createElement('button');b.className='cell';b.disabled=true;b.textContent='·';b.id=`cell-${i}-${d}`;b.setAttribute('aria-label',`Inject ${i}, delete ${d}: not run`);g.append(b);}}}
+  async function runGrid(){
+    if(gridBusy)return;gridBusy=true;const mode=$('grid-mode').value;$('run-grid').disabled=true;$('grid-mode').disabled=true;emptyGrid();let passes=0;
+    try{
+      for(let i=0;i<9;i++){
+        await new Promise(resolve=>setTimeout(resolve,0));
+        for(let d=0;d<9;d++){
+          const o={i,d,mode,tamper:false,seed:57611+i*9+d},r=E.simulate(o).result;if(r.accepted)passes++;
+          const b=$(`cell-${i}-${d}`);b.disabled=false;b.className='cell '+(r.accepted?(i===0&&d===0?'clean':'pass'):'fail');b.textContent=r.accepted?'✓':'×';b.setAttribute('aria-label',`Inject ${i}, delete ${d}: ${r.accepted?'accepted':'rejected'}${i===0&&d===0?' (clean)':''}. Open walkthrough.`);b.onclick=()=>loadOptions(o);
+        }
+        $('grid-status').textContent=`${(i+1)*9} / 81 trials completed`;
+      }
+      $('grid-status').textContent=`${modeNames[mode]}: ${passes} accepted, ${81-passes} rejected. One trial per cell.`;
+    }finally{gridBusy=false;$('run-grid').disabled=false;$('grid-mode').disabled=false;}
+  }
+  function selfTest(){
+    const expected='76b8e0ada0f13d90405d6ae55386bd28bdd219b8a08ded1aa836efcc8b770dc7da41597c5157488d7724e03fb8d84a376a43b8f41518a11cc387b669b2ee6586';
+    if(E.hex(E.stream(new Uint8Array(32),0,0,new Uint8Array(64)))!==expected)throw Error('ChaCha20 self-test failed');
+    const key=E.unhex('85d6be7857556d337f4452fe42d506a80103808afb0db2fd4abff6af4149f51b');
+    if(E.hex(E.poly1305(key,E.bytes('Cryptographic Forum Research Group')))!=='a8061dc1305136c6c22b8baf0c0127a9')throw Error('Poly1305 self-test failed');
+    $('self-test').textContent='ChaCha20 + Poly1305 known-vector checks passed';
+  }
+  try{
+    selfTest();for(const p of E.presets){const o=document.createElement('option');o.value=p.id;o.textContent=p.name;$('scenario').append(o);}const customOption=document.createElement('option');customOption.value='custom';customOption.textContent='Custom counts';customOption.disabled=true;$('scenario').append(customOption);
+    $('scenario').onchange=()=>preset($('scenario').value);for(const k of ['injections','deletions'])$(k).oninput=custom;for(const k of ['mode','tamper'])$(k).onchange=custom;
+    $('back').onclick=()=>{stop();go(index-1);};$('next').onclick=()=>{stop();go(index+1);};$('finish').onclick=()=>{stop();go(trial.trace.length-1);};$('restart').onclick=restart;$('play').onclick=play;
+    for(const b of document.querySelectorAll('[data-tab]'))b.onclick=()=>selectTab(b.dataset.tab);
+    for(const b of document.querySelectorAll('[data-preset]'))b.onclick=()=>{preset(b.dataset.preset);selectTab('demo');};
+    $('run-controls').onclick=runControls;$('run-grid').onclick=runGrid;$('grid-mode').onchange=()=>{emptyGrid();$('grid-status').textContent='Safeguards changed. Run the grid again.';};
+    $('export').onclick=()=>{
+      const data={model:'Offline SSH-style ChaCha20-Poly1305 teaching model',scope:'Schematic handshake; real protected packet checks; no live SSH or feature downgrade measured',options:trial.options,result:trial.result,trace:trial.trace,packets:trial.packets};
+      const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`terrapin-${trial.options.mode}-i${trial.options.i}-d${trial.options.d}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
+    $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){$('fullscreen').textContent='Use browser full screen (F11)';}};
+    document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+    document.addEventListener('keydown',e=>{if(activeTab!=='demo'||/INPUT|SELECT|TEXTAREA|BUTTON|SUMMARY/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;if(['ArrowRight','ArrowLeft',' ','r','R'].includes(e.key))e.preventDefault();if(e.key==='ArrowRight'){stop();go(index+1);}if(e.key==='ArrowLeft'){stop();go(index-1);}if(e.key===' ')play();if(e.key.toLowerCase()==='r')restart();});
+    new ResizeObserver(()=>{if(trial&&activeTab==='demo')drawArrow(trial.trace[index]);}).observe($('scene'));
+    emptyGrid();preset('matched');
+  }catch(error){$('self-test').textContent=error.message;const box=document.createElement('div');box.className='fatal';box.textContent=`Simulator could not start: ${error.message}. Open this file in a current desktop browser.`;document.querySelector('main').prepend(box);document.querySelectorAll('button,input,select').forEach(e=>e.disabled=true);console.error(error);}
+})();
+
+</script>
+</body></html>
